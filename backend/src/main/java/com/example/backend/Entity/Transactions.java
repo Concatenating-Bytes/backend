@@ -24,13 +24,13 @@ public class Transactions {
     @Column(name = "amount",nullable = false,updatable = false)
     private float amount;
 
-    @NotNull(message = "A transaction must have a sender-id")
-    @Column(name = "sender_id",updatable = false,nullable = false)
-    private UUID senderId;
+    @ManyToOne
+    @JoinColumn(name = "sender_id",nullable = false)
+    private User sender;
 
-    @NotNull(message = "A transcatrion must have a reciever-id")
-    @Column(name = "receiver_id",updatable = false,nullable = false)
-    private UUID receiverId;
+    @ManyToOne
+    @JoinColumn(name="receiver_id",nullable = false)
+    private User receiver;
 
 
     @Column(name = "completed")
@@ -40,15 +40,17 @@ public class Transactions {
     @Column(name = "created_at",updatable = false,nullable = false)
     private Instant createdAt;
 
+
+
     public Transactions(){
 
     }
 
-    public Transactions(UUID id, float amount, UUID senderId, UUID receiverId, boolean status, Instant createdAt) {
+    public Transactions(UUID id, float amount, User sender, User receiver, boolean status, Instant createdAt) {
         this.id = id;
         this.amount = amount;
-        this.senderId = senderId;
-        this.receiverId = receiverId;
+        this.sender = sender;
+        this.receiver = receiver;
         this.status = status;
         this.createdAt = createdAt;
     }
@@ -70,22 +72,6 @@ public class Transactions {
         this.amount = amount;
     }
 
-    public @NotNull(message = "A transaction must have a sender-id") UUID getSenderId() {
-        return senderId;
-    }
-
-    public void setSenderId(@NotNull(message = "A transaction must have a sender-id") UUID senderId) {
-        this.senderId = senderId;
-    }
-
-    public @NotNull(message = "A transcatrion must have a reciever-id") UUID getReceiverId() {
-        return receiverId;
-    }
-
-    public void setReceiverId(@NotNull(message = "A transcatrion must have a reciever-id") UUID receiverId) {
-        this.receiverId = receiverId;
-    }
-
     public boolean isStatus() {
         return status;
     }
@@ -102,13 +88,29 @@ public class Transactions {
         this.createdAt = createdAt;
     }
 
+    public User getSender() {
+        return sender;
+    }
+
+    public void setSender(User sender) {
+        this.sender = sender;
+    }
+
+    public User getReceiver() {
+        return receiver;
+    }
+
+    public void setReceiver(User receiver) {
+        this.receiver = receiver;
+    }
+
     @Override
     public String toString() {
         return "Transactions{" +
                 "id=" + id +
                 ", amount=" + amount +
-                ", senderId=" + senderId +
-                ", receiverId=" + receiverId +
+                ", sender=" + sender +
+                ", receiver=" + receiver +
                 ", status=" + status +
                 ", createdAt=" + createdAt +
                 '}';

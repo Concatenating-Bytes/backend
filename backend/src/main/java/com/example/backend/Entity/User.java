@@ -3,10 +3,10 @@ package com.example.backend.Entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
-import org.hibernate.annotations.NotFound;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.UUID;
 
 @Component
@@ -43,6 +43,12 @@ public class User {
     @Pattern(regexp = "\\d{10}", message = "Phone number must be valid")
     @Column(nullable = false)
     private String phone_no;
+
+    @OneToMany(mappedBy = "sender")
+    private List<Transactions> sentTransactions;
+
+    @OneToMany(mappedBy = "receiver")
+    private List<Transactions> receivedTransactions;
 
     public User(){
 
@@ -103,6 +109,22 @@ public class User {
 
     public void setPhone_no(@NotBlank(message = "Phone number is required") @Pattern(regexp = "\\d{10}", message = "Phone number must be valid") String phone_no) {
         this.phone_no = phone_no;
+    }
+
+    public List<Transactions> getSentTransactions() {
+        return sentTransactions;
+    }
+
+    public void setSentTransactions(List<Transactions> sentTransactions) {
+        this.sentTransactions = sentTransactions;
+    }
+
+    public List<Transactions> getRecievedTransactions() {
+        return receivedTransactions;
+    }
+
+    public void setRecievedTransactions(List<Transactions> recievedTransactions) {
+        this.receivedTransactions = recievedTransactions;
     }
 
     @Override
