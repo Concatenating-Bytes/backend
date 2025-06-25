@@ -1,8 +1,5 @@
 package com.example.backend.DTO;
-
-import com.example.backend.Entity.User;
 import lombok.*;
-
 import java.time.Instant;
 import java.util.UUID;
 
