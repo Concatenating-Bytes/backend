@@ -3,6 +3,10 @@ package com.example.backend.Entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -10,6 +14,10 @@ import java.util.List;
 import java.util.UUID;
 
 @Component
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table(name = "users")
 @Scope("prototype")
@@ -50,82 +58,8 @@ public class User {
     @OneToMany(mappedBy = "receiver")
     private List<Transactions> receivedTransactions;
 
-    public User(){
 
-    }
 
-    public User(UUID id, String firstName, String lastName, String dateOfBirth, String email, String phone_no) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.dateOfBirth = dateOfBirth;
-        this.email = email;
-        this.phone_no = phone_no;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public @NotBlank(message = "first_name is required") @Size(max = 50) String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(@NotBlank(message = "first_name is required") @Size(max = 50) String firstName) {
-        this.firstName = firstName;
-    }
-
-    public @NotBlank(message = "last_name is required") @Size(max = 50) String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(@NotBlank(message = "last_name is required") @Size(max = 50) String lastName) {
-        this.lastName = lastName;
-    }
-
-    public @Min(1900) String getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(@Min(1900) String dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public @Email(message = "email should be valid") @Max(1000) String getEmail() {
-        return email;
-    }
-
-    public void setEmail(@Email(message = "email should be valid") @Max(1000) String email) {
-        this.email = email;
-    }
-
-    public @NotBlank(message = "Phone number is required") @Pattern(regexp = "\\d{10}", message = "Phone number must be valid") String getPhone_no() {
-        return phone_no;
-    }
-
-    public void setPhone_no(@NotBlank(message = "Phone number is required") @Pattern(regexp = "\\d{10}", message = "Phone number must be valid") String phone_no) {
-        this.phone_no = phone_no;
-    }
-
-    public List<Transactions> getSentTransactions() {
-        return sentTransactions;
-    }
-
-    public void setSentTransactions(List<Transactions> sentTransactions) {
-        this.sentTransactions = sentTransactions;
-    }
-
-    public List<Transactions> getRecievedTransactions() {
-        return receivedTransactions;
-    }
-
-    public void setRecievedTransactions(List<Transactions> recievedTransactions) {
-        this.receivedTransactions = recievedTransactions;
-    }
 
     @Override
     public String toString() {

@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.ClientInfoStatus;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -32,7 +31,7 @@ public class UserService {
 
         List<Transactions> allTransactions = new ArrayList<>();
 
-        allTransactions.addAll(user.getRecievedTransactions());
+        allTransactions.addAll(user.getReceivedTransactions());
         allTransactions.addAll(user.getSentTransactions());
 
         List<UserTransactions> dtoObjects = new ArrayList<>();
@@ -41,7 +40,7 @@ public class UserService {
             //Setting Data Transfer Object
             UserTransactions dto = new UserTransactions();
             dto.setSender(user.getId());
-            dto.setId(tran.getId());
+            dto.setTransactionId(tran.getId());
             dto.setStatus(tran.isStatus());
             dto.setAmount(tran.getAmount());
             dto.setTime(tran.getCreatedAt());

@@ -2,6 +2,10 @@ package com.example.backend.Entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -10,6 +14,10 @@ import java.time.Instant;
 import java.util.UUID;
 
 @Component
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
 @Scope("prototype")
 @Table(name = "transactions")
@@ -40,69 +48,6 @@ public class Transactions {
     @Column(name = "created_at",updatable = false,nullable = false)
     private Instant createdAt;
 
-
-
-    public Transactions(){
-
-    }
-
-    public Transactions(UUID id, float amount, User sender, User receiver, boolean status, Instant createdAt) {
-        this.id = id;
-        this.amount = amount;
-        this.sender = sender;
-        this.receiver = receiver;
-        this.status = status;
-        this.createdAt = createdAt;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    @NotNull(message = "Some amount should be mentioned")
-    public float getAmount() {
-        return amount;
-    }
-
-    public void setAmount(@NotNull(message = "Some amount should be mentioned") float amount) {
-        this.amount = amount;
-    }
-
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
-
-    public Instant getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Instant createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public User getSender() {
-        return sender;
-    }
-
-    public void setSender(User sender) {
-        this.sender = sender;
-    }
-
-    public User getReceiver() {
-        return receiver;
-    }
-
-    public void setReceiver(User receiver) {
-        this.receiver = receiver;
-    }
 
     @Override
     public String toString() {
