@@ -40,7 +40,6 @@ public class Transactions {
     @JoinColumn(name="receiver_id",nullable = false)
     private User receiver;
 
-
     @Column(name = "completed")
     private boolean status;
 

@@ -28,6 +28,10 @@ public class User {
     @Column(columnDefinition = "uuid",updatable = false,nullable = false)
     private UUID id;
 
+    @ManyToMany
+    @JoinTable(name = "account_user_id")
+    private List<UserBankDetails> bankDetails;
+
     @NotBlank(message = "first_name is required")
     @Size(max = 50)
     @Column(name ="first_name",updatable = false ,nullable = false)
@@ -58,6 +62,7 @@ public class User {
     @OneToMany(mappedBy = "receiver")
     private List<Transactions> receivedTransactions;
 
+//    private int age;
 
 
 
