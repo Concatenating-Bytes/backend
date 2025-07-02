@@ -1,4 +1,5 @@
 package com.example.backend.Controller;
+import com.example.backend.DTO.UserBankInfo;
 import com.example.backend.DTO.UserTransactions;
 import com.example.backend.Service.BankDetailsService;
 import com.example.backend.Service.UserService;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,8 +27,9 @@ public class Controller {
         return transactions;
     }
 
-    @GetMapping("user/userBankDetails/{user_id}")
-    public boolean getUserBankDetails(@PathVariable("user_id")UUID user_id){
-        return false;
+    @GetMapping("users/userBankDetails/{user_id}")
+    public List<UserBankInfo> getUserBankDetails(@PathVariable("user_id")UUID user_id){
+        List<UserBankInfo> accounts = service.getAccounts(user_id);
+        return accounts;
     }
 }

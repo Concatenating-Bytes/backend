@@ -13,4 +13,5 @@ public class BankDetailsService {
     @Autowired
     private BankDetailsRepo bankDetailsRepo;
 
+
 }

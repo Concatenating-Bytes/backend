@@ -56,6 +56,9 @@ public class User {
     @Column(nullable = false)
     private String phone_no;
 
+    @Column(name="upid",updatable = false,unique = true)
+    private String upId;
+
     @OneToMany(mappedBy = "sender")
     private List<Transactions> sentTransactions;
 
@@ -65,16 +68,19 @@ public class User {
 //    private int age;
 
 
-
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
+                ", bankDetails=" + bankDetails +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", dateOfBirth='" + dateOfBirth + '\'' +
                 ", email='" + email + '\'' +
                 ", phone_no='" + phone_no + '\'' +
+                ", upId='" + upId + '\'' +
+                ", sentTransactions=" + sentTransactions +
+                ", receivedTransactions=" + receivedTransactions +
                 '}';
     }
 }
