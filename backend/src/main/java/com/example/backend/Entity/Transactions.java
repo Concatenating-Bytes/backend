@@ -1,5 +1,6 @@
 package com.example.backend.Entity;
 
+import com.example.backend.enums.TransactionStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -40,8 +41,15 @@ public class Transactions {
     @JoinColumn(name="receiver_id",nullable = false)
     private User receiver;
 
-    @Column(name = "completed")
-    private boolean status;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status",nullable = false)
+    private TransactionStatus status=TransactionStatus.PENDING;
+
+    @Column(name = "approved_at")
+    private Instant approvedAt;
+
+    @Column(name = "failure_reason")
+    private String failureReason;
 
     @CreationTimestamp
     @Column(name = "created_at",updatable = false,nullable = false)

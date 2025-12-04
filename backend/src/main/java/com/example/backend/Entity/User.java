@@ -10,6 +10,7 @@ import lombok.Setter;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
@@ -67,6 +68,11 @@ public class User {
 
 //    private int age;
 
+    @Column(name = "face_enrolled",nullable = false)
+    private boolean faceEnrolled=false;
+
+    @Column(name = "face_enrolled_at")
+    private Instant faceEnrolledAt;
 
     @Override
     public String toString() {
