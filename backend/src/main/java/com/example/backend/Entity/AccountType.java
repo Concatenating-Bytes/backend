@@ -1,5 +1,6 @@
 package com.example.backend.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,5 +26,6 @@ public class AccountType {
     private String type_name;
 
     @OneToMany(mappedBy = "type")
+    @JsonIgnore
     private List<UserBankDetails> bankDetails;
 }

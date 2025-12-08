@@ -1,5 +1,6 @@
 package com.example.backend.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -11,65 +12,46 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
-@Component
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
+@Table(name = "user_bank_details")
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserBankDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id",nullable = false,unique = true)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    //Relationships start
-    @ManyToMany(mappedBy = "bankDetails")
-    private List<User> user;
+    @Column(nullable = false)
+    private String accountHolderName;
 
-    @ManyToOne
-    @JoinColumn(name = "bank_ifsc",referencedColumnName = "ifsc_code",nullable = false)
-    private Bank bank_ifsc;
+    @Column(nullable = false, unique = true)
+    private String accountNumber;
 
-    @ManyToOne
-    @JoinColumn(name = "account_type")
-    private AccountType type;
-    //Relationship end
-
-    @NotBlank(message = "Account holder name is required")
-    @Size(max = 100)
-    @Column(name = "holder_name")
-    private String account_holder_name;
-
-    @NotBlank(message = "Account number is requires")
-    @Size(min=10)
-    @Column(name = "account_number",nullable = false,unique = true)
-    private String account_number;
-
-
-    @CreationTimestamp
-    @Column(name = "created_at",nullable = false,unique = true)
-    private Instant created_at;
-
-
-    @Column(name = "bank_balance")
+    @Column(nullable = false)
     private float balance;
 
-    @Override
-    public String toString() {
-        return "UserBankDetails{" +
-                "id=" + id +
-                ", user=" + user +
-                ", bank_ifsc=" + bank_ifsc +
-                ", account_holder_name='" + account_holder_name + '\'' +
-                ", account_number='" + account_number + '\'' +
-                ", type=" + type +
-                ", created_at=" + created_at +
-                ", balance=" + balance +
-                '}';
-    }
+    // ✅ USER RELATION
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnore
+    private User user;
+
+    // ✅ BANK RELATION (THIS IS WHAT mappedBy USES)
+    @ManyToOne
+    @JoinColumn(name = "bank_id", nullable = false)
+    private Bank bank;
+
+    @Column(updatable = false)
+    private Instant createdAt = Instant.now();
+
+    @ManyToOne
+    @JoinColumn(name = "type_id")
+    private AccountType type;
+
 }

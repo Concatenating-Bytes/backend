@@ -1,5 +1,6 @@
 package com.example.backend.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -31,8 +32,10 @@ public class Bank {
 
     @NotNull(message = "ifsc code is required")
     @Column(name = "ifsc_code",nullable = false,unique = true)
-    private UUID ifsc_code;
+    private UUID ifscCode;
 
-    @OneToMany(mappedBy = "bank_ifsc")
+    @OneToMany(mappedBy = "bank", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<UserBankDetails> details;
+
 }

@@ -10,7 +10,7 @@ public class WebClientConfig {
 
     //python microservice implementation
     @Bean
-    public WebClient pythonFaceWebClient(@Value("${...}") String url){
+    public WebClient pythonFaceWebClient(@Value("${python.service.url:http://localhost:9999}") String url){
         return WebClient.builder().baseUrl(url).build();
     }
 }

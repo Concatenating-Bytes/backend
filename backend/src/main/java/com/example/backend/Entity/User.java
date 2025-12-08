@@ -1,5 +1,6 @@
 package com.example.backend.Entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
@@ -11,53 +12,54 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@Component
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
 @Entity
 @Table(name = "users")
-@Scope("prototype")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
 
     @Id
-    @GeneratedValue
-    @Column(columnDefinition = "uuid",updatable = false,nullable = false)
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(nullable = false,updatable = false)
     private UUID id;
 
-    @ManyToMany
-    @JoinTable(name = "account_user_id")
-    private List<UserBankDetails> bankDetails;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<UserBankDetails> bankDetails = new ArrayList<>();
 
-    @NotBlank(message = "first_name is required")
+
+    @NotBlank(message = "First name is required")
     @Size(max = 50)
-    @Column(name ="first_name",updatable = false ,nullable = false)
+    @Column(name ="first_name",nullable = false)
     private String firstName;
 
-    @NotBlank(message = "last_name is required")
+    @NotBlank(message = "Last name is required")
     @Size(max = 50)
-    @Column(name = "last_name",updatable = false,nullable = false)
+    @Column(name = "last_name",nullable = false)
     private String lastName;
 
-    @Min(1900)
-    @Column(name="date_of_birth",updatable = false,nullable = false)
-    private String dateOfBirth;
+    @Past(message = "Date of birth must be in the past")
+    @Column(name="date_of_birth",nullable = false)
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate dateOfBirth;
 
     @Email(message = "email should be valid")
-    @Max(1000)
+    @Size(max = 255)
     @Column(name = "email",unique = true)
     private String email;
 
     @NotBlank(message = "Phone number is required")
     @Pattern(regexp = "\\d{10}", message = "Phone number must be valid")
-    @Column(nullable = false)
-    private String phone_no;
+    @Column(name ="phone_no", nullable = false,unique = true)
+    private String phoneNo;
 
-    @Column(name="upid",updatable = false,unique = true)
+    @Column(name="upid",unique = true)
     private String upId;
 
     @OneToMany(mappedBy = "sender")
@@ -83,7 +85,7 @@ public class User {
                 ", lastName='" + lastName + '\'' +
                 ", dateOfBirth='" + dateOfBirth + '\'' +
                 ", email='" + email + '\'' +
-                ", phone_no='" + phone_no + '\'' +
+                ", phone_no='" + phoneNo + '\'' +
                 ", upId='" + upId + '\'' +
                 ", sentTransactions=" + sentTransactions +
                 ", receivedTransactions=" + receivedTransactions +

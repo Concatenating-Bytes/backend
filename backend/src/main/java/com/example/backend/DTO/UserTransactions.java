@@ -1,4 +1,5 @@
 package com.example.backend.DTO;
+import com.example.backend.enums.TransactionStatus;
 import lombok.*;
 import java.time.Instant;
 import java.util.UUID;
@@ -14,5 +15,5 @@ public class UserTransactions {
     private UUID sender;
     private UUID receiver;
     private Instant time;
-    private boolean status;
+    private TransactionStatus status;
 }

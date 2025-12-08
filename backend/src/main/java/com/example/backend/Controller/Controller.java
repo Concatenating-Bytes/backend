@@ -15,21 +15,21 @@ import java.util.UUID;
 @RestController
 public class Controller {
 
-    @Autowired
-    private UserService service;
-
-    @Autowired
-    private BankDetailsService bankDetailsService;
-
-    @GetMapping("users/userAllTransactions/{userId}")
-    public List<UserTransactions> getUserTransactions(@PathVariable("userId")UUID userId){
-        List<UserTransactions> transactions = service.getUserTransactions(userId);
-        return transactions;
-    }
-
-    @GetMapping("users/userBankDetails/{user_id}")
-    public List<UserBankInfo> getUserBankDetails(@PathVariable("user_id")UUID user_id){
-        List<UserBankInfo> accounts = service.getAccounts(user_id);
-        return accounts;
-    }
+//    @Autowired
+//    private UserService service;
+//
+//    @Autowired
+//    private BankDetailsService bankDetailsService;
+//
+//    @GetMapping("users/userAllTransactions/{userId}")
+//    public List<UserTransactions> getUserTransactions(@PathVariable("userId")UUID userId){
+//        List<UserTransactions> transactions = service.getUserTransactions(userId);
+//        return transactions;
+//    }
+//
+//    @GetMapping("users/userBankDetails/{user_id}")
+//    public List<UserBankInfo> getUserBankDetails(@PathVariable("user_id")UUID user_id){
+//        List<UserBankInfo> accounts = service.getAccounts(user_id);
+//        return accounts;
+   // }
 }
