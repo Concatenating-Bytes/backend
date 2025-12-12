@@ -16,7 +16,7 @@ public class UserBankInfo {
     private String accountHolderName;
     private String accountNumber;
     private Instant createdAt;
-    private UUID ifscCode;
+    private String ifscCode;
     private float balance;
     private Long typeId;
 

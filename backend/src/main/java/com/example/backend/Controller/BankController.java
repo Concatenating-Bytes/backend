@@ -34,7 +34,7 @@ public class BankController {
 
     //get bank by ifsc
     @GetMapping("/ifsc/{ifsc}")
-    public Bank getBankByIfsc(@PathVariable UUID ifsc){
+    public Bank getBankByIfsc(@PathVariable String ifsc){
         return bankService.getBankByIfsc(ifsc);
     }
 
