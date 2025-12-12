@@ -1,6 +1,7 @@
 package com.example.backend.Entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
@@ -63,9 +64,11 @@ public class User {
     private String upId;
 
     @OneToMany(mappedBy = "sender")
+    @JsonIgnore
     private List<Transactions> sentTransactions;
 
     @OneToMany(mappedBy = "receiver")
+    @JsonIgnore
     private List<Transactions> receivedTransactions;
 
 //    private int age;

@@ -13,4 +13,6 @@ public interface BankDetailsRepo extends JpaRepository<UserBankDetails,Long> {
     Optional<UserBankDetails> findByUser(User user);
 
     Optional<UserBankDetails> findByUserId(UUID userId);
+    
+    Optional<UserBankDetails> findByAccountNumber(String accountNumber);
 }

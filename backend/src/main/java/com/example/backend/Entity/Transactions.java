@@ -1,5 +1,6 @@
 package com.example.backend.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.example.backend.enums.TransactionStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -35,10 +36,12 @@ public class Transactions {
 
     @ManyToOne
     @JoinColumn(name = "sender_id",nullable = false)
+    @JsonIgnore
     private User sender;
 
     @ManyToOne
     @JoinColumn(name="receiver_id",nullable = false)
+    @JsonIgnore
     private User receiver;
 
     @Enumerated(EnumType.STRING)
