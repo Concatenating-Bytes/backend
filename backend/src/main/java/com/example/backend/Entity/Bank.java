@@ -32,7 +32,7 @@ public class Bank {
 
     @NotNull(message = "ifsc code is required")
     @Column(name = "ifsc_code",nullable = false,unique = true)
-    private UUID ifscCode;
+    private String ifscCode;
 
     @OneToMany(mappedBy = "bank", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore

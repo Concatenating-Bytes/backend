@@ -32,12 +32,15 @@ public class BankDetailsService {
 
         Bank bank = bankRepo.findByIfscCode(dto.getIfscCode())
                 .orElseThrow(() -> new RuntimeException("Bank not found"));
-        AccountType type = accountTypeRepo.findById(dto.getTypeId())
-                .orElseThrow(() -> new RuntimeException("Account type not found"));
+        
+        // AccountType is optional - only fetch if typeId is provided
+        AccountType type = null;
+        if (dto.getTypeId() != null) {
+            type = accountTypeRepo.findById(dto.getTypeId())
+                    .orElse(null);
+        }
 
-
-
-        UserBankDetails bd = UserBankMapper.toEntity(dto, user, bank,type);
+        UserBankDetails bd = UserBankMapper.toEntity(dto, user, bank, type);
 
         UserBankDetails saved = bankDetailsRepo.save(bd);
 

@@ -31,7 +31,7 @@ public class BankService {
     }
 
     //get bank by ifsc
-    public Bank getBankByIfsc(UUID ifsc){
+    public Bank getBankByIfsc(String ifsc){
         return bankRepo.findByIfscCode(ifsc).orElseThrow(()->new RuntimeException("Bank not found with the IFSC:"+ifsc));
     }
 

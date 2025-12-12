@@ -34,7 +34,7 @@ public class UserBankMapper {
                 bd.getCreatedAt(),
                 bd.getBank().getIfscCode(),
                 bd.getBalance(),
-                bd.getType().getId()
+                bd.getType() != null ? bd.getType().getId() : null
         );
     }
 }
